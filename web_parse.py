@@ -14,7 +14,7 @@ soup = BeautifulSoup(webpage_html, 'html.parser')
 
 dialogue = soup.find_all('font')
 
-dialogue_clean = []
+person_quotes = {}
 
 #clean text 
 for font in dialogue[3:]:
@@ -24,15 +24,6 @@ for font in dialogue[3:]:
             temp = temp.replace(u'\xa0', '')
             temp = temp.replace('\n', ' ')
             temp = temp.split(":")
-            if temp not in dialogue_clean:
-                dialogue_clean.append(temp)
+            person_quotes[temp[0]] = person_quotes.get(temp[0],[]) + [temp[1]]
 
-#for k in dialogue_clean:
- #   print(k)
 
-with open("friends.csv", "w") as friends:
-    writer = csv.writer(friends, delimiter=',')
-    for lines in dialogue_clean:
-        writer.writerow([lines[0] + lines[1]])                                                                          
-
-     
